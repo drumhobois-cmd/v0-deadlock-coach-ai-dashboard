@@ -3,6 +3,30 @@
 import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 
+/* Deterministic dust motes — avoids server/client Math.random() hydration mismatch */
+const MOTES = [
+  { w: 1.66, h: 2.72, l: 12.4, t: 5.5, dur: 13.3, del: 0.95, k: 0 },
+  { w: 2.24, h: 1.52, l: 34.0, t: 23.0, dur: 6.3, del: 2.18, k: 1 },
+  { w: 1.99, h: 1.39, l: 87.5, t: 69.3, dur: 13.0, del: 0.85, k: 2 },
+  { w: 2.48, h: 2.97, l: 78.7, t: 29.5, dur: 8.6, del: 1.69, k: 3 },
+  { w: 2.43, h: 1.92, l: 56.8, t: 25.1, dur: 8.8, del: 0.22, k: 0 },
+  { w: 2.43, h: 1.54, l: 44.1, t: 44.6, dur: 13.0, del: 0.61, k: 1 },
+  { w: 2.88, h: 2.90, l: 24.7, t: 1.6, dur: 8.3, del: 3.30, k: 2 },
+  { w: 2.94, h: 1.90, l: 67.7, t: 83.3, dur: 7.3, del: 0.16, k: 3 },
+  { w: 2.82, h: 1.56, l: 9.7, t: 32.0, dur: 8.6, del: 3.58, k: 0 },
+  { w: 1.48, h: 1.56, l: 41.2, t: 51.3, dur: 10.9, del: 2.29, k: 1 },
+  { w: 1.65, h: 2.31, l: 93.5, t: 14.7, dur: 11.2, del: 1.44, k: 2 },
+  { w: 2.11, h: 1.78, l: 18.3, t: 72.1, dur: 9.4, del: 0.73, k: 3 },
+  { w: 2.67, h: 2.04, l: 62.8, t: 58.9, dur: 12.1, del: 2.91, k: 0 },
+  { w: 1.33, h: 2.55, l: 7.1, t: 91.4, dur: 7.8, del: 1.12, k: 1 },
+  { w: 2.01, h: 1.68, l: 80.3, t: 11.9, dur: 10.5, del: 3.45, k: 2 },
+  { w: 1.89, h: 2.13, l: 51.6, t: 40.7, dur: 9.1, del: 0.38, k: 3 },
+  { w: 2.72, h: 1.41, l: 29.4, t: 66.8, dur: 11.7, del: 2.55, k: 0 },
+  { w: 1.55, h: 2.88, l: 73.9, t: 87.2, dur: 8.0, del: 1.82, k: 1 },
+  { w: 2.35, h: 1.95, l: 46.2, t: 3.4, dur: 12.6, del: 0.49, k: 2 },
+  { w: 1.78, h: 2.42, l: 15.8, t: 48.5, dur: 9.7, del: 3.11, k: 3 },
+]
+
 interface IntroSequenceProps {
   onComplete: () => void
 }
@@ -96,18 +120,18 @@ export function IntroSequence({ onComplete }: IntroSequenceProps) {
         className="absolute inset-0 transition-opacity duration-[2000ms]"
         style={{ opacity: phaseIndex >= 1 && phaseIndex < 5 ? 0.6 : 0 }}
       >
-        {Array.from({ length: 20 }).map((_, i) => (
+        {MOTES.map((m, i) => (
           <div
             key={i}
             className="absolute rounded-full"
             style={{
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
+              width: `${m.w}px`,
+              height: `${m.h}px`,
               backgroundColor: "rgba(212,175,55,0.4)",
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float-mote-${i % 4} ${6 + Math.random() * 8}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 4}s`,
+              left: `${m.l}%`,
+              top: `${m.t}%`,
+              animation: `float-mote-${m.k} ${m.dur}s ease-in-out infinite`,
+              animationDelay: `${m.del}s`,
             }}
           />
         ))}
