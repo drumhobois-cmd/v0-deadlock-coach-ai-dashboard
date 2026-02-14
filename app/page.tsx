@@ -7,6 +7,7 @@ import { PerformanceChart } from "@/components/performance-chart"
 import { AiInsightPanel } from "@/components/ai-insight-panel"
 import { RoleMastery } from "@/components/role-mastery"
 import { DecoDivider, DecoHeading } from "@/components/deco-frame"
+import { DashboardShell } from "@/components/dashboard-shell"
 
 const heroes = [
   {
@@ -142,6 +143,7 @@ const matches = [
 
 export default function Page() {
   return (
+    <DashboardShell>
     <div className="min-h-screen bg-background">
       <DashboardHeader />
 
@@ -237,5 +239,6 @@ export default function Page() {
         </div>
       </main>
     </div>
+    </DashboardShell>
   )
 }
