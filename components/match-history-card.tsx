@@ -56,6 +56,7 @@ export function MatchHistoryCard({
             src={heroImage}
             alt={`${heroName} portrait`}
             fill
+            sizes="48px"
             className="object-cover"
           />
         </div>

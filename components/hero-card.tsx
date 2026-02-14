@@ -36,6 +36,7 @@ export function HeroCard({
               src={image}
               alt={`Portrait of ${name}`}
               fill
+              sizes="80px"
               className="object-cover"
             />
           </div>
